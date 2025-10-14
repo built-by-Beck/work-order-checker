@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workorders>
+    <workorder id="WO123">
+        <title>Emergency Systems Check</title>
+        <tasks>
+            <task id="212934">exit lights [212934] MOB B - ground floor - HRC back door</task>
+            <task id="334455">emergency lighting [334455] MOB B - 3rd floor - stairwell A</task>
+            <task id="776655">sprinkler system test [776655] MOB B - basement - pump room</task>
+        </tasks>
+    </workorder>
+</workorders>

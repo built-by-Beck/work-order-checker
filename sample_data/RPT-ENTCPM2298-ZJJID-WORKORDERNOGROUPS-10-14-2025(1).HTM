@@ -1,0 +1,1028 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Work Orders (No Grouping)</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+}
+ .pageselect{FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Arial}
+ .heading {background-color:#ffffff; cursor:pointer; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: royalblue; FONT-FAMILY: Arial; z-index: 2500;} 
+ .legendHeader {FONT-WEIGHT: bold; FONT-SIZE: 14px; COLOR: #333333; FONT-FAMILY: Arial}
+ .normaltext {FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial}
+ .labels {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: royalblue; FONT-FAMILY: Arial}
+ .assetUP {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: green; FONT-FAMILY: Arial}
+ .assetDOWN {FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #DD0000; FONT-FAMILY: Arial}
+ .asset {FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: #000000; FONT-FAMILY: Arial}
+ .data {FONT-SIZE: 12px; COLOR: #494949; FONT-FAMILY: Arial}
+ .data_underline {BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 12px; BORDER-LEFT: medium none; COLOR: #494949; BORDER-BOTTOM: #333333 1px solid; FONT-FAMILY: Arial}
+ .bottomline {BORDER-RIGHT: medium none; BORDER-TOP: medium none; BORDER-LEFT: medium none; BORDER-BOTTOM: #333333 1px solid}
+ .buttons {FONT-SIZE: 12px; WIDTH: 80px; cursor: pointer; COLOR: #333333; FONT-FAMILY: Arial}
+ .subtotal {BORDER-RIGHT: medium none; BORDER-TOP: #C0C0C0 1px solid; FONT-SIZE: 12px; BORDER-LEFT: medium none; COLOR: #333333; BORDER-BOTTOM: medium none; FONT-FAMILY: Arial}
+.bodyclasspreview {
+    background-color: #ffffff;
+    padding: 10px;
+    scrollbar-base-color: #FBFBFB;
+    font-size: 8pt;
+    font-family: Arial;
+    color: #000000;
+    overflow-y: scroll;
+}
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .bodyclasspreview::-webkit-scrollbar {
+        display: none;
+    }
+ .bodyclasspreviewinwo {background-color:#ffffff; padding-right:10px; scrollbar-base-color: #FBFBFB; font-size:8pt; font-family:Arial; color:#000000;}
+ .bodyclassprint {background-color:#ffffff; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; font-size:8pt; font-family:Arial; color:#000000;}
+ .bodyclassemail {background-color:#ffffff; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 20px; PADDING-TOP: 0px; font-size:8pt; font-family:Arial; color:#000000;}
+ .group1 {padding-left:0px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; FONT-WEIGHT: Bold; BACKGROUND-COLOR: #acc5e7;}
+ .group2 {padding-left:10px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; FONT-WEIGHT: Bold; BACKGROUND-COLOR: #c7d7ed;}
+ .group3 {padding-left:20px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; FONT-WEIGHT: Bold; BACKGROUND-COLOR: #dce8f4;}
+ .group4 {padding-left:30px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; FONT-WEIGHT: Bold; BACKGROUND-COLOR: #ecf1fb;}
+ .group5 {padding-left:40px; FONT-SIZE: 12px; COLOR: royalblue; FONT-FAMILY: Arial; FONT-WEIGHT: Bold; BACKGROUND-COLOR: #ffffff;}
+ .groupheader {FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; FONT-WEIGHT: Bold;}
+ .normalright {BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: normal; FONT-SIZE: 8pt; MARGIN-BOTTOM: 1px; BORDER-LEFT: #c0c0c0 1px solid; COLOR: #000000; BORDER-BOTTOM: #c0c0c0 1px solid; FONT-FAMILY: Arial; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: right}
+ .clsBtnUp {cursor: pointer; color: black; font-weight: normal; border-top:1px solid #ffffff;border-left:1px solid #ffffff;border-right:1px solid #B4B4B4;border-bottom:1px solid #B4B4B4;padding-right:2px;}
+ .clsBtnDown {cursor: pointer; color: black; font-weight: normal; border-right:1px solid #ffffff;border-bottom:1px solid #ffffff;border-top:1px solid #B4B4B4;border-left:1px solid #B4B4B4;padding-right:2px;}
+ .clsBtnOff {color: black; font-weight: normal; tab-index: 0; border:1px solid transparent; padding-right:2px;}
+ .actionbarlabel {float:right;margin-top:6px;padding-left:5px;padding-right:5px;font-size:8pt;font-family:Arial;color:#000000;}
+ INPUT {padding-left:3px;}
+ A:link {FONT-SIZE: 8pt; cursor: pointer; COLOR: #315aad; FONT-FAMILY: Arial; BACKGROUND-COLOR: transparent;}
+ A:visited {FONT-SIZE: 8pt; cursor: pointer; COLOR: #315aad; FONT-FAMILY: Arial; BACKGROUND-COLOR: transparent;}
+ A:active {FONT-SIZE: 8pt; cursor: pointer; COLOR: #315aad; FONT-FAMILY: Arial; BACKGROUND-COLOR: transparent;}
+ A:hover {COLOR: red;}
+ fieldset {border: 1px solid #AAAAAB;}
+ .buttonsdisabled { display: static; opacity: 0.4; cursor:pointer;	}
+ .buttonsenabled { display:	; opacity: 1; cursor:pointer; }
+ .normalrow {FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial }
+ .tb {width:100%; PADDING-LEFT: 1px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; border: 1px solid #AAAAAB;}
+ .tbf {BACKGROUND-COLOR: #ffffcc; width:100%; PADDING-LEFT: 1px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; border: 1px solid #AAAAAB;}
+ .ta {width:200px; PADDING-LEFT: 1px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; border: 1px solid #AAAAAB;}
+ .taf {BACKGROUND-COLOR: #ffffcc; width:200px; PADDING-LEFT: 1px; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; border: 1px solid #AAAAAB;}
+ .cb {COLOR: #333333;}
+ .HeaderRight {font-family:Arial;font-size:16px;color:#333333;font-weight:bold}
+ .SubHeaderRight {font-family:Arial;font-size:11px;font-weight:normal}
+ .SRInstructions {margin-top:5px;font-family:Arial;font-size:8pt;color:green;font-weight:bold}
+ .verticalcolumn {border:1px solid #CCCCCC;}
+ .mcpagebreak {page-break-before: always;}
+ @media print {
+    .mcpagebreakprint {
+        page-break-inside: avoid !important;
+        height: 144px !important; 
+    }
+ }
+ .ReportRow1 {background-color:#FFFFFF; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial }
+ .ReportRow2 {background-color:#EFEFEF; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial }
+ .ReportRowCrit1 {background-color:#FFFFFF; FONT-SIZE: 8pt; COLOR: #333333; FONT-FAMILY: Arial }
+ .ReportRowCrit2 {background-color:#EFEFEF; FONT-SIZE: 8pt; COLOR: #333333; FONT-FAMILY: Arial }
+ .SmartRow {background-color:#FFDF84; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial; cursor:pointer; }
+ .SubReportRow {background-color:#DEEFC6; FONT-SIZE: 12px; COLOR: #333333; FONT-FAMILY: Arial }
+ .ExpandCollapse {font-family:Arial;font-size:8pt;color:#333333;cursor:pointer;}
+.grip {
+    width: 13px;
+    height: 6px;
+    margin-top: 6px;
+    margin-left: -2px;
+    position: relative;
+    opacity: 0.5;
+    z-index: 88;
+    cursor: e-resize;
+    background-image: url(../images/icon-columnwidth-default15px.svg);
+}
+.grip:hover {
+    width: 13px;
+    height: 6px;
+    margin-top: 6px;
+    margin-left: -2px;
+    background-image: url(../images/icon-columnwidth-hover15px.svg);
+}
+.JCLRLastGrip .grip {left: -2px; }
+.dragging .grip {
+    width: 13px;
+    height: 6px;
+    margin-top: 6px;
+    margin-left: -2px;
+    background-image: url(../images/icon-columnwidth-active15px.svg);
+}
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    margin-bottom: 12px;
+}
+.fieldset {
+    border: 1px solid #AAAAAB;
+    margin: 14px 2px 2px;
+}
+.fieldset h1 {
+    display: inline;
+    background: #fff;
+    margin-left: 7px;
+    position: relative;
+    top: -1.7em;
+}
+.image-container {
+    page-break-inside: avoid;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/demo.css"> <link rel="stylesheet" type="text/css" href="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/jquery-ui.min.css"> <script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/bitmap.js"></script> <script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/fonts.js"></script> <script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/jquery.js"></script> <script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/symdesc.js"></script> <script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/lib/jquery-ui.min.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/BarcodeWriter.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/bwipjs.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/bwipp.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsBarcode/freetype.js"></script><script type="text/javascript">$(document).ready(function () {renderBarcodes();  });</script> 
+<script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsPDF/pdfWriter.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsPDF/compatibility.js"></script><script type="text/javascript" src="https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsPDF/pdf.js"></script><script type="text/javascript">$(document).ready(function () {renderPDF('https://www.maintenanceconnection.com/mcv18/mapp_v2025.10/jsPDF/pdf.worker.js');  });</script> 
+</HEAD>
+<BODY class="bodyclassemail">
+<table border="0" width="100%">
+<tr>
+<td valign="top">
+<img border="0" src="https://app.maintenanceconnection.com/mc_imageserver/ENTCPM2298/Brookwood Logo.jpg"><br clear="all">
+</td>
+<td align="right" valign="bottom">
+<div id="dvCanvas49298-224335" style="text-align:center">
+<canvas class="barcode" bcid="4" bctxt="49298-224335" bcMode="report" bcImpression="2" bcShowText="off"  bcBearerBars="No"  bcCheckDigits="No" width=1 height=1 style="border:1px solid #fff;visibility:hidden;"></canvas>
+</div>
+<div id="dv_2" style="visibility:hidden; font-family:Arial;font-size:11px;font-weight:normal;text-align:center">
+</div>
+</td>
+<td valign="top" align="right">
+<div style="font-family:-apple-system, BlinkMacSystemFont,'Segoe UI',Arial;font-size:16px;color:#333333;font-weight:bold;margin-bottom:4px;">Work Order 49298-224335</div>
+<div style="font-family:-apple-system, BlinkMacSystemFont,'Segoe UI',Arial;font-size:11px;font-weight:normal">Brookwood</div>
+<div style="font-family:-apple-system, BlinkMacSystemFont,'Segoe UI',Arial;font-size:11px;font-weight:normal">Sent 10/14/2025&nbsp;-&nbsp;2:57 PM&nbsp;
+(Duplicate Copy)
+</div>
+</td>
+</tr>
+</table>
+<fieldset style="padding-top:5px">
+<legend class="legendHeader">Maintenance Details</legend>
+<table cellpadding="3" width="100%" border="0" style="font-family:-apple-system, BlinkMacSystemFont,'Segoe UI',Arial;font-size:12px;color:#333333">
+<tr>
+<td valign="top" width="33%">
+<table border="0" cellspacing="1" cellpadding="1">
+<tr>
+<td class="labels" nowrap valign="top">Requested:</td>
+<td class="data" valign="top">
+10/1/2025 4:05:56 AM&nbsp;
+</td>
+</tr>
+<tr>
+<td class="labels" valign="top">Procedure:</td>
+<td valign="top" class="data">Exit Lights Monthly PM
+ (BMP145-M)
+</td>
+</tr>
+<tr>
+<td class="labels" valign="top">Last PM:</td>
+<td class="data" valign="top">9/10/2025</td>
+</tr>
+</table>
+</td>
+<td valign="top" width="33%">
+<table border="0" cellspacing="1" cellpadding="1">
+<tr>
+<td class="labels" valign="top">Target:</td>
+<td class="data" valign="top">10/31/2025&nbsp;
+(1) hr
+</td>
+</tr>
+<tr>
+<td class="labels" valign="top">Priority/Type:&nbsp;</td>
+<td class="data" valign="top">Routine
+/ Preventive
+</td>
+</tr>
+</table>
+</td>
+<td valign="top" width="33%" rowspan="3">
+<table border="0" cellspacing="1" cellpadding="1">
+<tr>
+<td valign="top" colspan="2">
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td class="asset" valign="top">
+<img src='https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/iconlib/CL/structures/buildingm1_g.gif' border=0 style='margin-right:4px'>BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>
+</td>
+</tr>
+<tr>
+<td class="asset" valign="top">
+<img src='https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/iconlib/CL/symbols/openxp_g.gif' border=0 style='margin-right:4px'>FED Equipment Lists<br>
+</td>
+</tr>
+<tr>
+<td class="assetUp" valign="top">
+<img src='https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/iconlib/AS/symbols/openxp_g.gif' border=0 style='margin-right:4px'>Exit Lights<br>
+</td>
+</tr>
+</table>
+<br>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td valign="top" class="labels">Contact:&nbsp;</td>
+<td valign="top" class="data"></td>
+</tr>
+<tr>
+<td valign="top" class="labels">Phone:</td>
+<td valign="top" class="data"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign="top" colspan="2" style="padding-left:5px;"><span class="labels">Reason:&nbsp;</span><span class="data" style="padding-left:0.5em;">Exit Lights Monthly PM</span>
+</tr>
+<tr valign="top">
+</tr>
+<tr>
+<td valign="top" colspan="2" class="data" style="padding-left:5px;">
+<br>
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+Warranty&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+Shutdown&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+Lockout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+Attach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+Charge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+</table>
+</fieldset>
+<div class="fieldset" style="padding-top:14px">
+<h1 class="legendHeader">Tasks
+</h1>
+<table style="margin-top:5px;" border="0" cellspacing="3" cellpadding="0" width="98%" align="center">
+<tr>
+<td class="labels" width="40" style="padding-left:5px">#</td>
+<td class="labels">Description</td>
+<td class="labels" align="center" width="55">Rating</td>
+<td class="labels" align="center" width="55">Meas.</td>
+<td class="labels" align="center" width="70">Initials</td>
+<td class="labels" align="center" width="35">Failed</td>
+<td class="labels" align="center" width="35">N/A</td>
+<td class="labels" align="center" width="35">&nbsp;Complete&nbsp;</td>
+</tr>
+<tr class="blank_row">
+<td valign="top" class="data" colspan="8" style="padding-top:8px"><b>Monthly Tasks</b></td>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">20&nbsp;</td>
+<td valign="bottom" class="data_underline">Obtain the established inventory of the exit lights that are located in the facility.&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">30&nbsp;</td>
+<td valign="bottom" class="data_underline">Inspect the exit light to ensure it is properly illuminated.&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">40&nbsp;</td>
+<td valign="bottom" class="data_underline">Inspect for proper directional indicators and the direction is correct.&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">50&nbsp;</td>
+<td valign="bottom" class="data_underline">Any door, passage, or stairway that is neither an exit nor a way of exit access and that is located or arranged so that it is likely to be mistaken for an exit shall be identified by a sign reading no exit. in letters 1 inch high and the word exit below the word no.&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">60&nbsp;</td>
+<td valign="bottom" class="data_underline">Exit lights must be clearly visibly for 100 feet under all conditions &amp; without any other source of illumination&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">70&nbsp;</td>
+<td valign="bottom" class="data_underline">Exit lighting must be part of the emergency lighting&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">90&nbsp;</td>
+<td valign="bottom" class="data_underline">All exit lighting must conform to ul 924 standards&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">100&nbsp;</td>
+<td style="padding-left:30px;" valign="bottom" class="data_underline">References: nfpa 70 nec, nfpa 101 lsc &amp; ul924.<br>total inventory: <br>total inspected: <br>total deficient: <br>percentage (%) compliant: <br>corrections:<br>work orders issued:<br>w/o completion dates:<br>comments:&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">101&nbsp;</td>
+<td valign="bottom" class="data_underline">References: NFPA 70 NEC, NFPA 101 LSC &amp; UL 924	&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="top" class="data" colspan="8" style="padding-top:8px"><b>List of Equipment (if applicable)</b></td>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-01 [281683]</b> FED 1st Floor South Vestibule: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.001&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-02 [281470]</b> First floor Registration corridor: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.002&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-03 [281471]</b> First floor Triage/Discharge corridor: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.003&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-04 [281480]</b> First floor at lab: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.004&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-05 [281681]</b> First floor South Waiting: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.005&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-06 [281481]</b> Fist floor at double doors on the lab side: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.006&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-08 [281486]</b> First floor at double door on ER side: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.007&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-09 [281492]</b> First floor at room 11: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.008&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-10 [281499]</b> Firsrt floor at room 7: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.009&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-11 [281514]</b> First floor at room 5: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.01&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-12 [281523]</b> First floor at double doors to ambulance vestibule: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.011&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-13 [281524]</b> First floor at ambulance vestibule: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.012&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-14 [281533]</b> First floor Decon exit to ambulance canopy: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.013&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-15 [281521]</b> First floor corridor to employee entrance: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.014&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-16 [281522]</b> First floor at conference room: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.015&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-17 [281587]</b> First floor at employee entrance: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.016&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-18 [281569]</b> First floor ER side of double doors to diagnostics: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.017&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-19 [281605]</b> FIrst floor diagnostics double doors by CT: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.018&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-20 [281613]</b> First floor diagnostics employee entrance: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.019&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-21 [281622]</b> FIrst floor diagnostics corridor by telecommunications: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.02&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-22 [281623]</b> First floor diagnostics double doors by MRI: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.021&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-23 [281648]</b> First floor diagnostics double doors by Xray side: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.022&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-24 [281655]</b> First floor next to xray: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.023&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-25 [281665]</b> First floor next to diagnostic checkout: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.024&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-26 [281667]</b> First floor diagnostic lobby doors: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.025&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-27 [281678]</b> First floor diagnostic inner sliding doors: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td valign="bottom" class="data_underline">115.026&nbsp;</td>
+<td valign="bottom" class="data_underline"><b>Exit Lights FED-28 [281679]</b> FIrst floor diagnostic outer doors: BROOKWOOD FREESTANDING EMERGENCY DEPARTMENT<br>FED Equipment Lists<br>Exit Lights&nbsp;
+</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td valign="bottom" class="data_underline" align="center">
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td valign="bottom" class="data_underline" align="center">&nbsp;</td>
+<td align='center' class='data_underline'>
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td align='center' class='data_underline'>
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+<td align='center' class='data_underline'>
+<img src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/checkbox_notchecked.jpg" border="0">
+</td>
+</tr>
+</table>
+<br>
+</div>
+<fieldset style="padding-top:14px">
+<legend class="legendHeader">Labor</legend>
+<table style="margin-top:5px;" border="0" cellspacing="3" cellpadding="0" width="98%" align="center">
+<tr>
+<td class="labels">Labor</td>
+<td class="labels" width="120">Account</td>
+<td class="labels" width="50">Assigned&nbsp;</td>
+<td class="labels" width="50">Work Date</td>
+<td nowrap class="labels" width="50">Start</td>
+<td class="labels" width="50">End</td>
+<td class="labels" align="center" width="40" nowrap>&nbsp;Reg Hrs&nbsp;</td>
+<td class="labels" align="center" width="40" nowrap>&nbsp;OT Hrs&nbsp;</td>
+<td class="labels" align="center" width="40" nowrap>&nbsp;Other Hrs&nbsp;</td>
+</tr>
+<tr class="blank_row" style="padding-top:0.5em;">
+<td class="data_underline">
+Beck, David
+</td>
+<td width="120" class="data_underline">&nbsp;</td>
+<td width="90" class="data_underline">10/2/2025&nbsp;/&nbsp;
+1&nbsp;</td>
+<td width="90" class="data_underline">&nbsp;</td>
+<td width="90" class="data_underline">&nbsp;</td>
+<td width="90" class="data_underline">&nbsp;</td>
+<td class="data_underline" align="center">&nbsp;</td>
+<td class="data_underline" align="center">&nbsp;</td>
+<td class="data_underline" align="center">&nbsp;</td>
+</tr>
+</table><br>
+</fieldset>
+<fieldset style="padding-top:14px">
+<legend class="legendHeader">Parts/Tools</legend>
+<table style="margin-top:5px;" border="0" cellspacing="3" cellpadding="0" width="98%" align="center">
+<tr class="blank_row">
+<td valign="bottom" width="1%" class="labels">Barcode</td>
+<td valign="bottom" class="labels" width="30%">Item</td>
+<td valign="bottom" class="labels" width="">Location</td>
+<td valign="bottom" class="labels" width="120">Account</td>
+<td style="padding-left:5px;padding-right:5px;" class="labels" width="5%" align="center" nowrap>Est Qty</td>
+<td style="padding-left:5px;padding-right:5px;" class="labels" width="5%" align="center" nowrap>Actual Qty</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+</tr>
+<tr class="blank_row">
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+<td class='data_underline'>&nbsp;</td>
+</tr>
+</table><br>
+</fieldset>
+<fieldset style="padding-top:10px; margin-bottom:7px;">
+<legend class="legendHeader">Labor Report</legend>
+<table style="margin-top:5px;" border="0" cellspacing="0" cellpadding="0" width="98%" align="center">
+<tr>
+<td class="data" width="20%">
+<table border="0" cellspacing="3" cellpadding="0">
+<tr>
+<td nowrap class="labels" valign="bottom">Completed:&nbsp;</td>
+<td class="data_underline" width="100%">&nbsp;</td>
+</tr>
+</table>
+</td>
+<td class="data" width="30%">
+<table border="0" cellspacing="3" cellpadding="0">
+<tr>
+<td nowrap class="labels" valign="bottom">Failure:&nbsp;</td>
+<td class="data_underline" width="100%">&nbsp;</td>
+</tr>
+</table>
+</td>
+<td style="padding-left:7px;" class="data" width="35%">
+</td>
+</tr>
+<tr>
+<td colspan="4" class="labels">
+<table style="margin-top:10px;" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td valign="top" style="padding-left:3px;" colspan="2" nowrap class="labels">
+Report:&nbsp;&nbsp;
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+</fieldset>
+</BODY>
+</HTML>
+<p><img border="0" src="https://app.maintenanceconnection.com/mcv18/mapp_v2025.10/images/mcrptgenlogo.jpg"></p>

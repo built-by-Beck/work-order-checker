@@ -1,0 +1,4 @@
+exit lights [212934] MOB B - ground floor - HRC back door
+exit lights [778899] MOB B - basement - utility room
+emergency lighting [112233] MOB B - 3rd floor - conference room
+exit lights [212935] MOB B - 1st floor - main entrance
