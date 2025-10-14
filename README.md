@@ -69,18 +69,12 @@ Checking 5 work order files for duplicates...
 
 Duplicate #1:
 Task: exit lights [212934] MOB B - ground floor - HRC back door
-Found in work orders:
-  - exit_lights_general
-  - mob_b_exit_lights
-  - maintenance_html
-  - emergency_systems
+
 ----------------------------------------
 
 Duplicate #2:
-Task: emergency lighting [445566] MOB B - 2nd floor - main corridor
-Found in work orders:
-  - exit_lights_general
-  - building_maintenance
+Task: exit lights [212934] MOB B - ground floor - HRC back door
+
 ----------------------------------------
 ```
 
@@ -88,7 +82,7 @@ Found in work orders:
 
 ### Text Files (.txt)
 Plain text files with tasks listed line by line. The program automatically detects patterns like:
-- `exit lights [212934] MOB B - ground floor - HRC back door`
+- `emergency lighting [445566] MOB B - 2nd floor - main corridor`
 - `emergency lighting [445566] MOB B - 2nd floor - main corridor`
 
 ### CSV Files (.csv)
