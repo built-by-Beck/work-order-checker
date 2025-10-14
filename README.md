@@ -1,12 +1,12 @@
 # Work Order Duplicate Checker
 
-A Python application that analyzes work order files to identify duplicate tasks across different work orders, preventing double work in maintenance operations.
+A Python application that analyzes work order files to identify duplicate work orders by detecting the same equipment at the same location across different work orders, preventing double work in maintenance operations.
 
 ## Features
 
 - **Multi-format Support**: Handles TXT, CSV, JSON, PDF, HTML, XML, XLS, XLSX, DOC, and DOCX work order files
-- **Smart Task Detection**: Recognizes task patterns with IDs in brackets (e.g., `[212934]`)
-- **Duplicate Detection**: Identifies when the same task appears in multiple work orders
+- **Smart Task Detection**: Recognizes task patterns with equipment/part IDs in brackets (e.g., `[212934]`)
+- **Duplicate Detection**: Identifies when the same location and part number appear in multiple work orders, indicating potential duplicate work assignments
 - **Detailed Reporting**: Provides comprehensive duplicate analysis reports
 - **Batch Processing**: Can process entire directories of work order files
 - **Robust Parsing**: Extracts tasks from various document structures and formats
@@ -64,16 +64,14 @@ Checking 5 work order files for duplicates...
 ✓ Loaded: maintenance_html.html
 ✓ Loaded: emergency_systems.xml
 
-🚨 Found 2 duplicate tasks:
+🚨 Found 1 duplicate tasks:
 ================================================================================
 
 Duplicate #1:
 Task: exit lights [212934] MOB B - ground floor - HRC back door
-
-----------------------------------------
-
-Duplicate #2:
-Task: exit lights [212934] MOB B - ground floor - HRC back door
+Found in work orders:
+  - exit_lights_general
+  - mob_b_exit_lights
 
 ----------------------------------------
 ```
@@ -119,10 +117,10 @@ JSON files with task objects. Supports multiple structures:
 
 ## How It Works
 
-1. **File Parsing**: The program reads work order files and extracts task information
+1. **File Parsing**: The program reads work order files and extracts task information including equipment/part numbers and locations
 2. **Task Normalization**: Tasks are normalized (whitespace, case) for accurate comparison
-3. **Duplicate Detection**: Tasks are compared across all work orders to find duplicates
-4. **Reporting**: Results are displayed with clear identification of duplicate tasks and their locations
+3. **Duplicate Detection**: Work orders are compared by matching exact locations AND part numbers (equipment IDs in brackets). When the same part number is found at the exact same location across multiple work orders, this indicates potential duplicate work assignments.
+4. **Reporting**: Results are displayed with clear identification of work orders that may be duplicates based on matching locations and part numbers
 
 ## Example Work Order Files
 

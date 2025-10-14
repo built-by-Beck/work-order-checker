@@ -2,8 +2,9 @@
 """
 Work Order Duplicate Checker
 
-This program analyzes work order files to identify duplicate tasks across different work orders.
-Prevents double work by detecting when the same task appears in multiple work orders.
+This program analyzes work order files to identify potential duplicate work orders.
+It detects when the same equipment (by part number) at the same location appears in 
+multiple work orders, preventing double work in maintenance operations.
 
 Usage: python main.py [work_order_files...]
 """

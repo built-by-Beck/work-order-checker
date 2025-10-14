@@ -1,7 +1,8 @@
 """
 Work Order Checker Module
 
-This module provides functionality to parse work order files and detect duplicate tasks.
+This module provides functionality to parse work order files and detect potential duplicate work orders.
+Duplicates are identified by matching exact locations and part numbers (equipment IDs) across work orders.
 Supports multiple file formats: TXT, CSV, JSON, PDF, HTML, XML, XLS, XLSX, DOC, DOCX
 """
 
