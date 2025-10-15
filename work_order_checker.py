@@ -54,22 +54,39 @@ class Task:
     raw_text: str
     
     def normalize(self) -> str:
-        """Return a normalized version of the task for comparison."""
-        # For duplicate detection, we focus on equipment ID and location
-        # Extract equipment ID in brackets and location information
+        """Return a normalized version of the task for comparison.
+
+        Duplicates are identified by:
+        1. Same location (required)
+        2. Same part number/equipment ID (optional but recommended)
+
+        Note: We do NOT compare task descriptions, as different workers might
+        describe the same location/equipment differently.
+        """
+        # Extract part/equipment ID in brackets (e.g., [212934])
         equipment_match = re.search(r'\[([^\]]+)\]', self.raw_text)
-        equipment_id = equipment_match.group(1) if equipment_match else ""
-        
-        # Extract location information (everything after the equipment ID)
+        part_number = equipment_match.group(1).strip() if equipment_match else ""
+
+        # Extract location information (everything after the brackets)
         if equipment_match:
-            location_part = self.raw_text[equipment_match.end():].strip()
+            location = self.raw_text[equipment_match.end():].strip()
         else:
-            location_part = self.location or self.description
-        
-        # Combine equipment ID and location for comparison
-        normalized = f"{equipment_id}|{location_part}".lower().strip()
-        normalized = re.sub(r'\s+', ' ', normalized)
-        
+            # Fallback to stored location or description
+            location = self.location or self.description
+
+        # Normalize location: lowercase, single spaces, remove punctuation
+        location = location.lower().strip()
+        location = re.sub(r'\s+', ' ', location)  # Normalize whitespace
+        location = re.sub(r'[,\.\-:]+$', '', location)  # Remove trailing punctuation
+
+        # Create a normalized key: part_number|location
+        # Both must match for a duplicate (if part_number exists)
+        # If no part_number, just use location
+        if part_number:
+            normalized = f"{part_number}|{location}"
+        else:
+            normalized = f"no_part|{location}"
+
         return normalized
     
     def __hash__(self):

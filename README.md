@@ -1,55 +1,85 @@
 # Work Order Duplicate Checker
 
-A Python application that analyzes work order files to identify duplicate work orders by detecting the same equipment at the same location across different work orders, preventing double work in maintenance operations.
+A Python application that analyzes work order files to identify duplicate work orders by detecting the same equipment at the same location across different work orders, preventing double work in maintenance operations. Available in both **command-line** and **user-friendly GUI** versions.
 
 ## Features
 
 - **Multi-format Support**: Handles TXT, CSV, JSON, PDF, HTML, XML, XLS, XLSX, DOC, and DOCX work order files
 - **Smart Task Detection**: Recognizes task patterns with equipment/part IDs in brackets (e.g., `[212934]`)
-- **Duplicate Detection**: Identifies when the same location and part number appear in multiple work orders, indicating potential duplicate work assignments
+- **Location-Specific Detection**: Identifies duplicates based on equipment ID and exact location when the same location and part number appear in multiple work orders, indicating potential duplicate work assignments
 - **Detailed Reporting**: Provides comprehensive duplicate analysis reports
 - **Batch Processing**: Can process entire directories of work order files
 - **Robust Parsing**: Extracts tasks from various document structures and formats
+- **GUI Interface**: Easy-to-use graphical interface with drag-and-drop support
+- **Cross-Platform**: Works on Windows, macOS, and Linux
 
 ## Installation
 
-1. Clone or download this repository
-2. Install Python 3.6+ if not already installed
-3. Install required dependencies:
+### Windows Users (Easy Installation)
+
+1. **Download** or clone this repository
+2. **Run** `install_windows.bat` - This will automatically install Python dependencies
+3. **Launch** the GUI: `python gui.py` or double-click `launcher.py`
+
+### Manual Installation (All Platforms)
+
+1. **Install Python 3.8+** if not already installed
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-
-## Quick Start
-
-1. **Test with sample data:**
+3. **Run the application:**
    ```bash
-   python main.py sample_data/
+   # GUI Version (recommended)
+   python gui.py
+   
+   # Command Line Version
+   python main.py [files or directory]
    ```
 
-2. **Use with your own files:**
-   ```bash
-   python main.py /path/to/your/workorders/
-   ```
+### Building Windows Executable
 
-## VS Code Integration
+To create a standalone Windows executable that doesn't require Python installation:
 
-This project includes VS Code tasks for easy execution:
+```bash
+python build_windows.py
+```
 
-1. **Run with sample data:** Press `Ctrl+Shift+P` → "Tasks: Run Task" → "Run Work Order Checker"
-2. **Run with custom files:** Press `Ctrl+Shift+P` → "Tasks: Run Task" → "Run Work Order Checker - Custom Files"
-3. **Install dependencies:** Press `Ctrl+Shift+P` → "Tasks: Run Task" → "Install Dependencies"
+This creates `WorkOrderChecker.exe` in the `dist` folder.
 
 ## Usage
 
-### Basic Usage
+### GUI Version (Recommended)
 
-Check specific work order files:
+1. **Launch the application:**
+   ```bash
+   python gui.py
+   ```
+
+2. **Add work order files:**
+   - Click "Add Files" to select individual files
+   - Click "Add Folder" to add all supported files from a directory
+   - **Drag and drop** files directly into the file list
+
+3. **Check for duplicates:**
+   - Click "Check for Duplicates"
+   - View results in the results panel
+   - Export results to a text file if needed
+
+4. **Supported operations:**
+   - Remove selected files from the list
+   - Clear all files
+   - View detailed duplicate information
+   - Export results for reporting
+
+### Command Line Version
+
+**Check specific work order files:**
 ```bash
 python main.py workorder1.pdf workorder2.xlsx workorder3.html
 ```
 
-Check all work orders in a directory:
+**Check all work orders in a directory:**
 ```bash
 python main.py /path/to/workorders/
 ```
@@ -68,11 +98,19 @@ Checking 5 work order files for duplicates...
 ================================================================================
 
 Duplicate #1:
-Task: exit lights [212934] MOB B - ground floor - HRC back door
+Task: Exit Light [212934] MOB B - ground floor - HRC back door
 Found in work orders:
   - exit_lights_general
   - mob_b_exit_lights
 
+<<<<<<< HEAD
+=======
+Duplicate #2:
+Task: Emergency Light [445566] MOB B - 2nd floor - main corridor
+Found in work orders:
+  - exit_lights_general
+  - building_maintenance
+>>>>>>> 4e04e64 (Add GUI version and Windows installer)
 ----------------------------------------
 ```
 

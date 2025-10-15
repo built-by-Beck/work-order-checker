@@ -8,3 +8,6 @@ lxml>=4.9.0             # XML parsing support
 python-docx>=0.8.11     # For .docx files
 python-magic>=0.4.27    # File type detection
 chardet>=5.0.0          # Character encoding detection
+
+# GUI dependencies
+tkinterdnd2>=0.3.0      # Drag and drop support for tkinter
