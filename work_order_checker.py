@@ -78,6 +78,9 @@ class Task:
         location = location.lower().strip()
         location = re.sub(r'\s+', ' ', location)  # Normalize whitespace
         location = re.sub(r'[,\.\-:]+$', '', location)  # Remove trailing punctuation
+        
+        # Expand common abbreviations to handle cases like "WMC" vs "Women's Medical Center"
+        location = self._expand_abbreviations(location)
 
         # Create a normalized key: part_number|location
         # Both must match for a duplicate (if part_number exists)
@@ -88,6 +91,33 @@ class Task:
             normalized = f"no_part|{location}"
 
         return normalized
+    
+    def _expand_abbreviations(self, location: str) -> str:
+        """Expand common location abbreviations to their full forms.
+        
+        This helps identify duplicates when different work orders use
+        abbreviations vs. full names for the same location.
+        """
+        # Define common abbreviations (case-insensitive)
+        # Add more as needed based on your facility's naming conventions
+        abbreviations = {
+            r'\bwmc\b': "women's medical center",
+            r"\bwomen'?s?\s+med(?:ical)?\s+(?:ctr|center)\b": "women's medical center",
+            r'\bmob\s*([a-z])\b': r'medical office building \1',
+            r'\ber\b': 'emergency room',
+            r'\bicu\b': 'intensive care unit',
+            r'\bor\b': 'operating room',
+            r'\bpacu\b': 'post anesthesia care unit',
+            r'\bnicu\b': 'neonatal intensive care unit',
+            r'\bccu\b': 'cardiac care unit',
+            r'\bpicu\b': 'pediatric intensive care unit',
+        }
+        
+        # Apply each abbreviation expansion
+        for abbrev_pattern, full_form in abbreviations.items():
+            location = re.sub(abbrev_pattern, full_form, location, flags=re.IGNORECASE)
+        
+        return location
     
     def __hash__(self):
         return hash(self.normalize())
@@ -496,8 +526,8 @@ class WorkOrderChecker:
                     cell_text = cell.get_text(separator=' ', strip=True)
                     
                     # Look for equipment with bold formatting and IDs
-                    # Pattern: Exit Light [ID] Location: Building details
-                    equipment_pattern = r'(Exit Light|Fire Extinguisher|Emergency Light)(?:\s+[\w-]+)?\s*\[([^\]]+)\]\s*(.+?)(?:\s*MAIN HOSPITAL|\s*Equipment Lists|\s*Exit Lights|$)'
+                    # Pattern: Exit Light(s) [ID] Location: Building details
+                    equipment_pattern = r'(Exit Lights?|Fire Extinguishers?|Emergency Lights?)(?:\s+[\w-]+)?\s*\[([^\]]+)\]\s*(.+?)(?:\s*MAIN HOSPITAL|\s*Equipment Lists|\s*Exit Lights?|$)'
                     
                     match = re.search(equipment_pattern, cell_text, re.IGNORECASE)
                     if match:
