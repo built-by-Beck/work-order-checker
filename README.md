@@ -7,6 +7,7 @@ A Python application that analyzes work order files to identify duplicate work o
 - **Multi-format Support**: Handles TXT, CSV, JSON, PDF, HTML, XML, XLS, XLSX, DOC, and DOCX work order files
 - **Smart Task Detection**: Recognizes task patterns with equipment/part IDs in brackets (e.g., `[212934]`)
 - **Location-Specific Detection**: Identifies duplicates based on equipment ID and exact location when the same location and part number appear in multiple work orders, indicating potential duplicate work assignments
+- **Smart Location Normalization**: Automatically recognizes common location abbreviations (e.g., "WMC" = "Women's Medical Center", "MOB A" = "Medical Office Building A") to catch duplicates even when different work orders use different naming conventions
 - **Detailed Reporting**: Provides comprehensive duplicate analysis reports
 - **Batch Processing**: Can process entire directories of work order files
 - **Robust Parsing**: Extracts tasks from various document structures and formats
@@ -103,14 +104,11 @@ Found in work orders:
   - exit_lights_general
   - mob_b_exit_lights
 
-<<<<<<< HEAD
-=======
 Duplicate #2:
 Task: Emergency Light [445566] MOB B - 2nd floor - main corridor
 Found in work orders:
   - exit_lights_general
   - building_maintenance
->>>>>>> 4e04e64 (Add GUI version and Windows installer)
 ----------------------------------------
 ```
 
@@ -156,9 +154,25 @@ JSON files with task objects. Supports multiple structures:
 ## How It Works
 
 1. **File Parsing**: The program reads work order files and extracts task information including equipment/part numbers and locations
-2. **Task Normalization**: Tasks are normalized (whitespace, case) for accurate comparison
+2. **Task Normalization**: Tasks are normalized (whitespace, case) for accurate comparison. Location abbreviations are automatically expanded (e.g., "WMC" → "Women's Medical Center", "MOB A" → "Medical Office Building A", "ER" → "Emergency Room") to ensure duplicates are found even when different work orders use different naming conventions
 3. **Duplicate Detection**: Work orders are compared by matching exact locations AND part numbers (equipment IDs in brackets). When the same part number is found at the exact same location across multiple work orders, this indicates potential duplicate work assignments.
 4. **Reporting**: Results are displayed with clear identification of work orders that may be duplicates based on matching locations and part numbers
+
+### Location Abbreviation Normalization
+
+The program automatically recognizes and normalizes common location abbreviations to catch duplicates that might otherwise be missed:
+
+- **WMC** → Women's Medical Center
+- **MOB A/B/C** → Medical Office Building A/B/C
+- **ER** → Emergency Room
+- **ICU** → Intensive Care Unit
+- **OR** → Operating Room
+- **PACU** → Post Anesthesia Care Unit
+- **NICU** → Neonatal Intensive Care Unit
+- **CCU** → Cardiac Care Unit
+- **PICU** → Pediatric Intensive Care Unit
+
+This means if one work order has "Exit Light [100234] WMC - Main Entrance" and another has "Exit Light [100234] Women's Medical Center - Main Entrance", the program will correctly identify them as duplicates.
 
 ## Example Work Order Files
 
@@ -178,6 +192,24 @@ exit lights [778899] MOB B - basement - utility room
 ```
 
 Run: `python main.py exit_lights_general.txt mob_b_exit_lights.txt`
+
+### Example with Location Abbreviations
+
+**work_order_1.txt:**
+```
+Exit Light [100234] Women's Medical Center - Main Entrance
+Exit Light [100235] MOB A - First Floor
+```
+
+**work_order_2.txt:**
+```
+Exit Light [100234] WMC - Main Entrance
+Exit Light [100235] Medical Office Building A - First Floor
+```
+
+Run: `python main.py work_order_1.txt work_order_2.txt`
+
+The program will correctly identify both tasks as duplicates despite the different naming conventions (WMC vs Women's Medical Center, MOB A vs Medical Office Building A).
 
 ## Contributing
 
